@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main>
   <!-- Navbar -->
   <header class="navbar">
     <div class="logo">🎯 Roletando</div>
@@ -43,7 +44,7 @@
       </div>
 
       <div class="filmes-row-wrapper">
-    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
+    
     
     <div class="card-container filmes-row">
       <div class="movie-card">
@@ -62,8 +63,14 @@
         <img src="images/example.jpg" alt="Outro filme">
         <p>Outro filme</p>
       </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Outro filme">
+        <p>Outro filme</p>
+      </div>
+      
     </div>
     
+    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
     <button class="scroll-btn scroll-right" onclick="scrollRight(this)">➡</button>
       </div>
     </section>
@@ -102,6 +109,9 @@
 </section>
 
   <!-- Lado direito: Roleta -->
+  
+</div>
+<div>
   <section class="roleta-section">
     <div class="roleta-container">
       <div class="roleta-alvo"></div>
@@ -114,17 +124,15 @@
     </div>
   </section>
 </div>
+</main>
 
   <!-- Rodapé -->
   <footer class="footer">
-    <button>Contact Us</button>
-    <div class="links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Sales and Refunds</a>
-      <a href="#">Legal</a>
-      <a href="#">Site Map</a>
+    <button class="button-btn">Contato</button>
+    <div class="footer-things">
+      <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
     </div>
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
   </footer>
 
   <script src="script.js"></script>

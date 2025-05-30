@@ -10,26 +10,17 @@ body, html {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: 0px;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-footer.footer {
-  margin-top: auto;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-}
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px;
+  padding: 11px;
   background-color: #350756;
   color: white;
 }
@@ -43,7 +34,7 @@ footer.footer {
 .navbar .logo {
     font-size: 20px;
     font-weight: bold;
-    margin-right: 300px;
+    margin-right: 270px;
 }
 
 .navbar profile-icon {
@@ -114,7 +105,8 @@ footer.footer {
   gap: 2rem;
   padding: 2rem;
   flex-wrap: nowrap;
-  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .categoria-btn {
@@ -139,8 +131,21 @@ footer.footer {
 .card-container {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
   overflow-x: auto;
+  padding-bottom: 0,5rem;
+  scrollbar-width: none;
+  margin-left: 17px;
+}
+
+.card-container, .filmes-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+.card-container::-webkit-scrollbar {
+  display: none;
 }
 
 .bloco-filmes {
@@ -149,8 +154,13 @@ footer.footer {
   box-shadow:
     0 0 10px rgba(122, 48, 227, 0.5),
     0 0 25px rgba(122, 48, 227, 0.1);
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  min-width: 100%;
+  margin-bottom: 2rem;
+  margin-left: 37px;
+  margin-right: 17px;
 }
 
 .bloco-filmes:hover {
@@ -186,6 +196,7 @@ footer.footer {
   box-sizing: border-box;
   height: 240px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 0 0 180px;
 }
 
 .movie-card:hover {
@@ -204,15 +215,17 @@ footer.footer {
 
 
 .roleta-section {
-  flex: 1;
-  margin-top: 10px;
+  flex: none;
+  width: 40%;
+  min-width: 280px;
+  max-width: 400px;
+  margin-right: 17px;
+  margin-left: 40px;
   background-color: #1e1e2f;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 0 15px rgba(122, 48, 227, 0.5);
     height: auto;
-    min-width: 300px;
-  max-width: 400px;
 }
 
 .roleta-alvo {
@@ -284,7 +297,8 @@ footer.footer {
 }
 
 .filmes-listas  {
-    flex: 3;
+    flex: none;
+    width: 65%;
 }
 
 .bloco-filmes {
@@ -308,6 +322,32 @@ footer.footer {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+footer.footer {
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+
+}
+
+.footer .button-btn {
+  margin-top: 10px;;
+  margin-left: 20px;
+  padding: 0.8rem 1.0rem;
+  font-size: 1rem;
+  background-color: #7a30e3;
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 50px;
+}
+
+.footer .button-btn:hover {
+  background-color: #20013f;
+}
+
 
 .footer .links a {
   margin: 0 0.5rem;
