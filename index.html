@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roletando</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">🎯 Roletando</div>
+    <input type="text" placeholder="Procure por filmes, categorias..." class="search-bar">
+    <button class="search-btn">Pesquisar</button>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+
+  <!-- Row: Categorias -->
+  <section class="row categorias">
+    <button class="categoria-btn ativo">Todos</button>
+    <button class="categoria-btn">Comédia</button>
+    <button class="categoria-btn">Animação</button>
+    <button class="categoria-btn">Documentário</button>
+    <button class="categoria-btn">Romance</button>
+    <button class="categoria-btn">Ação</button>
+    <button class="categoria-btn">Terror</button>
+    <button class="categoria-btn">Mistério</button>
+  </section>
+
+<div class="conteudo-principal">
+  <!-- Lado esquerdo: Listas de filmes -->
+  <div class="filmes-listas">
+    <!-- Populares -->
+    <section class="bloco-filmes">
+      <div class="row-header">
+        <h2>Populares</h2>
+        <a href="vertodos.html">Ver Todos</a>
+      </div>
+
+      <div class="filmes-row-wrapper">
+    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
+    
+    <div class="card-container filmes-row">
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Shrek">
+        <p>Shrek</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Os Incríveis">
+        <p>Os Incríveis</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="As tranças do careca">
+        <p>As tranças do careca</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Outro filme">
+        <p>Outro filme</p>
+      </div>
+    </div>
+    
+    <button class="scroll-btn scroll-right" onclick="scrollRight(this)">➡</button>
+      </div>
+    </section>
+
+    <!-- Lançamentos -->
+    <section class="bloco-filmes">
+  <div class="row-header">
+    <h2>Populares</h2>
+    <a href="vertodos.html">Ver Todos</a>
+  </div>
+
+  <div class="filmes-row-wrapper">
+    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
+    
+    <div class="card-container filmes-row">
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Shrek">
+        <p>Shrek</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Os Incríveis">
+        <p>Os Incríveis</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="As tranças do careca">
+        <p>As tranças do careca</p>
+      </div>
+      <div class="movie-card">
+        <img src="images/example.jpg" alt="Outro filme">
+        <p>Outro filme</p>
+      </div>
+    </div>
+    
+    <button class="scroll-btn scroll-right" onclick="scrollRight(this)">➡</button>
+  </div>
+</section>
+
+  <!-- Lado direito: Roleta -->
+  <section class="roleta-section">
+    <div class="roleta-container">
+      <div class="roleta-alvo"></div>
+      <button onclick="girarRoleta()">Roletar</button>
+    </div>
+    <div class="resultado-container">
+      <div class="resultado-box">Resultado aqui</div>
+      <button>Adicionar Lista</button>
+      <button>Adicionar</button>
+    </div>
+  </section>
+</div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <button>Contact Us</button>
+    <div class="links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Sales and Refunds</a>
+      <a href="#">Legal</a>
+      <a href="#">Site Map</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
