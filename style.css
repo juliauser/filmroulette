@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  background-color: #1f1f2e;
+  background-color: #121212;
   color: white;
-  font-family: sans-serif;
   overflow-x: hidden;
 }
 
@@ -13,6 +12,7 @@ body, html {
   padding-bottom: 2.5rem;
   position: relative;
   padding-bottom: 0px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 
@@ -35,6 +35,13 @@ body, html {
     font-size: 20px;
     font-weight: bold;
     margin-right: 270px;
+    margin-left: 20px;
+}
+
+.navbar a.active {
+    color: #fff;
+    border-bottom: 3px solid #bb86fc;
+    font-weight: bold;
 }
 
 .navbar profile-icon {
@@ -71,7 +78,7 @@ body, html {
   border-radius: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 180px;
+  margin-right: 80px;
 }
 
 .search-btn:hover {
@@ -91,6 +98,10 @@ body, html {
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.container {
+  margin-bottom: 20px;
 }
 
 .page-container {
@@ -126,6 +137,7 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .card-container {
@@ -172,7 +184,7 @@ body, html {
 
 .row-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 7px;
 }
 
@@ -216,7 +228,7 @@ body, html {
 
 .roleta-section {
   flex: none;
-  width: 40%;
+  width: 80%;
   min-width: 280px;
   max-width: 400px;
   margin-right: 17px;
@@ -231,7 +243,7 @@ body, html {
 .roleta-alvo {
   width: 400px;
   height: 400px;
-  border-radius: 80%;
+  border-radius: 40%;
   background-image: url('images/roleta.png'); /* ou 'images/roleta.png' se estiver em uma pasta */
   background-size: cover;
   background-position: center;
@@ -244,6 +256,7 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 300px;
 }
 
 .roleta-container .roleta-alvo {
@@ -278,7 +291,7 @@ body, html {
   box-shadow: 0 0 15px rgba(122, 48, 227, 0.4);
   margin-top: 1rem;
   color: #fff;
-  width: 250px;
+  width: 260px;
 }
 
 .resultado-container button {
@@ -306,7 +319,6 @@ body, html {
 }
 
 .resultado-box {
-  background: #2a2a3d;
   height: 120px;
   width: 270px;
   margin: 1rem auto;
@@ -348,11 +360,12 @@ footer.footer {
   background-color: #20013f;
 }
 
-
-.footer .links a {
-  margin: 0 0.5rem;
-  color: #bbb;
-  text-decoration: none;
+.footer .footer-things {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  margin-right: 70px;
 }
 
 .filmes-row-wrapper {
@@ -401,6 +414,13 @@ footer.footer {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+.profile-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 40px;
+  margin-right: 20px;
 }
 
 @media (max-width: 900px) {

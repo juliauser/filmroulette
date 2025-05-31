@@ -10,27 +10,27 @@
   <main>
   <!-- Navbar -->
   <header class="navbar">
-    <div class="logo">🎯 Roletando</div>
+    <div class="logo">Roletando</div>
     <input type="text" placeholder="Procure por filmes, categorias..." class="search-bar">
     <button class="search-btn">Pesquisar</button>
     <nav>
-      <a href="index.html">Início</a>
+      <a href="index.html" class="active">Início</a>
       <a href="categorias.html">Categorias</a>
       <a href="minhaslistas.html">Minhas Listas</a>
     </nav>
     <div class="profile-icon">👤</div>
   </header>
 
-  <!-- Row: Categorias -->
-  <section class="row categorias">
-    <button class="categoria-btn ativo">Todos</button>
-    <button class="categoria-btn">Comédia</button>
-    <button class="categoria-btn">Animação</button>
-    <button class="categoria-btn">Documentário</button>
-    <button class="categoria-btn">Romance</button>
-    <button class="categoria-btn">Ação</button>
-    <button class="categoria-btn">Terror</button>
-    <button class="categoria-btn">Mistério</button>
+  <!-- Categorias -->
+  <section class="genre-buttons">
+    <button onclick="getMovies()">Todos</button>
+      <button onclick="getMovies(35)">Comédia</button>
+      <button onclick="getMovies(16)">Animação</button>
+      <button onclick="getMovies(99)">Documentário</button>
+      <button onclick="getMovies(10749)">Romance</button>
+      <button onclick="getMovies(28)">Ação</button>
+      <button onclick="getMovies(27)">Terror</button>
+      <button onclick="getMovies(9648)">Mistério</button>
   </section>
 
 <div class="conteudo-principal">
@@ -46,7 +46,7 @@
       <div class="filmes-row-wrapper">
     
     
-    <div class="card-container filmes-row">
+    <div class="card-container filmes-row" id="moviesContainer">
       <div class="movie-card">
         <img src="images/example.jpg" alt="Shrek">
         <p>Shrek</p>
@@ -130,9 +130,8 @@
   <footer class="footer">
     <button class="button-btn">Contato</button>
     <div class="footer-things">
-      <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+      <p>&copy; 2025 Roletando. </p>
     </div>
-    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
   </footer>
 
   <script src="script.js"></script>
