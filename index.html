@@ -11,8 +11,8 @@
   <!-- Navbar -->
   <header class="navbar">
     <div class="logo">Roletando</div>
-    <input type="text" placeholder="Procure por filmes, categorias..." class="search-bar">
-    <button class="search-btn">Pesquisar</button>
+    <input type="text" id="searchInput" placeholder="Procure por filmes, categorias..." class="search-bar">
+    <button class="search-btn" onclick="searchMovies()">Pesquisar</button>
     <nav>
       <a href="index.html" class="active">Início</a>
       <a href="categorias.html">Categorias</a>
@@ -24,16 +24,28 @@
   <!-- Categorias -->
   <section class="genre-buttons">
     <button onclick="getMovies()">Todos</button>
-      <button onclick="getMovies(35)">Comédia</button>
-      <button onclick="getMovies(16)">Animação</button>
-      <button onclick="getMovies(99)">Documentário</button>
-      <button onclick="getMovies(10749)">Romance</button>
-      <button onclick="getMovies(28)">Ação</button>
-      <button onclick="getMovies(27)">Terror</button>
-      <button onclick="getMovies(9648)">Mistério</button>
+      <button onclick="goToGenre(28, 'Ação')">Ação</button>
+      <button onclick="goToGenre(35, 'Comédia')">Comédia</button>
+      <button onclick="goToGenre(16, 'Animação')">Animação</button>
+      <button onclick="goToGenre(99, 'Documentário')">Documentário</button>
+      <button onclick="goToGenre(10749, 'Romance')">Romance</button>
+      <button onclick="goToGenre(27, 'Terror')">Terror</button>
+      <button onclick="goToGenre(9648, 'Mistério')">Mistério</button>
   </section>
 
 <div class="conteudo-principal">
+
+  <!-- Modal -->
+<div id="movieModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalInfo"></p>
+    <div id="modalTrailer"></div>
+    <p id="modalOverview"></p>
+  </div>
+</div>
+
   <!-- Lado esquerdo: Listas de filmes -->
   <div class="filmes-listas">
     <!-- Populares -->
@@ -46,7 +58,7 @@
       <div class="filmes-row-wrapper">
     
     
-    <div class="card-container filmes-row" id="moviesContainer">
+    <div class="card-container filmes-row" id="popularContainer">
       <div class="movie-card">
         <img src="images/example.jpg" alt="Shrek">
         <p>Shrek</p>
@@ -78,14 +90,14 @@
     <!-- Lançamentos -->
     <section class="bloco-filmes">
   <div class="row-header">
-    <h2>Populares</h2>
+    <h2>Lançamentos</h2>
     <a href="vertodos.html">Ver Todos</a>
   </div>
 
   <div class="filmes-row-wrapper">
     <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
     
-    <div class="card-container filmes-row">
+    <div class="card-container filmes-row" id="latestContainer">
       <div class="movie-card">
         <img src="images/example.jpg" alt="Shrek">
         <p>Shrek</p>
