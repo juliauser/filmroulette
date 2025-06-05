@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <style>
+    body { text-align: center; padding: 50px; font-family: sans-serif; }
+    input, button { padding: 0.5rem; margin: 0.5rem; }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
+    <nav>
+      <a href="index.html" class="active">Início</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+
+
+  <h1>Cadastro</h1>
+  <input type="text" id="username" placeholder="Nome de usuário"><br>
+  <input type="password" id="password" placeholder="Senha"><br>
+  <button onclick="register()">Cadastrar</button><br><br>
+
+  <p>Já tem conta? <a href="login.html">Faça login</a></p>
+
+  <script>
+    function register() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === '' || password === '') {
+        alert('Preencha todos os campos!');
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+
+      if (users[username]) {
+        alert('Usuário já existe!');
+      } else {
+        users[username] = {
+          password: password,
+          lists: ['Favoritos'],
+          rouletteSound: 'ding',
+          rouletteAnimation: 'confetti'
+        };
+
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('loggedUser', username);
+
+        alert('Cadastro realizado com sucesso!');
+        window.location.href = 'profile.html';
+      }
+    }
+
+    <!-- Rodapé -->
+  <footer class="footer">
+    <button class="button-btn">Contato</button>
+    <div class="footer-things">
+      <p>&copy; 2025 Roletando. </p>
+    </div>
+  </footer>
+  
+  </script>
+
+</body>
+</html>

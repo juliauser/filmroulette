@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body { text-align: center; padding: 50px; font-family: sans-serif; }
+    input, button { padding: 0.5rem; margin: 0.5rem; }
+  </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
+    <nav>
+      <a href="index.html" class="active">Início</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+
+  <h1>Login</h1>
+  <input type="text" id="username" placeholder="Nome de usuário"><br>
+  <input type="password" id="password" placeholder="Senha"><br>
+  <button onclick="login()">Entrar</button><br><br>
+
+  <p>Não tem conta? <a href="register.html">Cadastre-se</a></p>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+
+      if (users[username] && users[username].password === password) {
+        localStorage.setItem('loggedUser', username);
+        alert('Login bem-sucedido!');
+        window.location.href = 'profile.html';
+      } else {
+        alert('Usuário ou senha inválidos!');
+      }
+    }
+
+    <!-- Rodapé -->
+  <footer class="footer">
+    <button class="button-btn">Contato</button>
+    <div class="footer-things">
+      <p>&copy; 2025 Roletando. </p>
+    </div>
+  </footer>
+  
+  </script>
+
+</body>
+</html>

@@ -26,6 +26,7 @@
     <h1>🔍 Resultado da Busca</h1>
 
     <div id="searchResult"></div>
+    <div id="searchResult2"></div>
 
     <h2>🔥 Filmes Populares</h2>
     <div class="card-container" id="popularContainer"></div>
@@ -40,6 +41,12 @@
       <div id="modalTrailer"></div>
     </div>
   </div>
+  
+  <div class="pagination">
+      <button onclick="previousSearchPage()">⬅️ Anterior</button>
+      <span id="searchPageIndicator">Página 1</span>
+      <button onclick="nextSearchPage()">Próxima ➡️</button>
+    </div>
 
   <!-- Rodapé -->
   <footer class="footer">

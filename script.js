@@ -1,4 +1,4 @@
-const API_TOKEN = 'x';
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOTMzMGE2MDk0ZDBhYzIwYThlOThlNTkwMTFhMzZjMiIsIm5iZiI6MTc0MDYzNDUzNi4zNTEsInN1YiI6IjY3YmZmOWE4MTRhNDM5NmNhZmM4ZDFmNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vTO_TxPpk3x6dpYKXdKLHRDUXP1Hwhx0wZsyrvCwKrY';
 
 let currentPage = 1;
 let totalPages = 1;
@@ -122,12 +122,13 @@ async function searchMovies(page = 1) {
   const data = await fetchAPI(url);
 
   // Cria container de resultados se não existir
-  let container = document.getElementById('searchResults');
+  let container = document.getElementById('searchTitle').innerText = `🎬 Resultados para "${query}"`;
   if (!container) {
     const section = document.createElement('div');
     section.innerHTML = `
-      <h1 id="movieData.title">🎬 title</h1>
+      <h1 id="searchTitle">🎬 Resultados para "${query}"</h1>
       <div class="card-container" id="searchResults"></div>
+
       <div class="pagination">
         <button onclick="previousSearchPage()">⬅️ Anterior</button>
         <span id="searchPageIndicator">Página ${currentSearchPage}</span>
@@ -135,7 +136,7 @@ async function searchMovies(page = 1) {
       </div>
     `;
     document.querySelector('.container').appendChild(section);
-    container = document.getElementById('searchResults');
+    container = document.getElementById('searchTitle').innerText = `🎬 Resultados para "${query}"`;
   }
 
   container.innerHTML = '';
@@ -199,7 +200,7 @@ function previousPage() {
 
 //Página de busca
 // 🚀 Carregar a página de busca
-async function loadSearchPage() {
+async function loadSearchPage(page = 1) {
   const params = new URLSearchParams(window.location.search);
   const query = params.get('query');
 
@@ -215,8 +216,10 @@ async function loadSearchPage() {
     document.getElementById('searchResult').innerHTML = `<p>Nenhum resultado encontrado para "${query}".</p>`;
   } else {
     renderMainResult(data.results[0]); // Mostra o primeiro resultado como destaque
+    // Mostra o restante na lista
+    const resultsContainer = document.getElementById('searchResults');
   }
-
+ 
   // Carregar também os filmes populares
   loadPopular();
 }
@@ -246,3 +249,73 @@ function renderMainResult(movie) {
   document.getElementById('searchResult').innerHTML = card;
 }
 
+//profile
+const profileIcon = document.querySelector('.profile-icon');
+profileIcon.addEventListener('click', () => {
+  window.location.href = 'profile.html';
+});
+
+const users = JSON.parse(localStorage.getItem('users')) || {};
+const loggedUser = localStorage.getItem('loggedUser');
+
+const userData = users[loggedUser];
+
+// Mostrar nome
+document.getElementById('username').textContent = loggedUser;
+
+// Mostrar listas
+const listsContainer = document.getElementById('lists-container');
+listsContainer.innerHTML = '';
+
+userData.lists.forEach(list => {
+  const li = document.createElement('li');
+  li.textContent = list;
+  listsContainer.appendChild(li);
+});
+
+// Carregar configurações
+const soundSelect = document.getElementById('sound-select');
+const animationSelect = document.getElementById('animation-select');
+
+soundSelect.value = userData.rouletteSound;
+animationSelect.value = userData.rouletteAnimation;
+
+// Salvar configurações
+document.querySelector('.save-button').addEventListener('click', () => {
+  userData.rouletteSound = soundSelect.value;
+  userData.rouletteAnimation = animationSelect.value;
+
+  users[loggedUser] = userData;
+  localStorage.setItem('users', JSON.stringify(users));
+
+  alert('Configurações salvas!');
+});
+
+// Logout
+function logout() {
+  localStorage.removeItem('loggedUser');
+  window.location.href = 'login.html';
+}
+
+// selecionar elementos
+const avatarSelect = document.getElementById('avatar-select');
+const profilePhoto = document.querySelector('.profile-photo');
+const username = document.getElementById('username');
+
+// preencher informações
+avatarSelect.value = userData.avatar || '👤';
+profilePhoto.textContent = userData.avatar || '👤';
+username.textContent = userData.username || 'Usuário';
+
+// trocar avatar
+avatarSelect.addEventListener('change', () => {
+  userData.avatar = avatarSelect.value;
+  profilePhoto.textContent = userData.avatar;
+  saveUserData();
+});
+
+// salvar dados
+function saveUserData() {
+  users[loggedUser] = userData;
+  localStorage.setItem('users', JSON.stringify(users));
+}
