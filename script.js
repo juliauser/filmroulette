@@ -1,4 +1,4 @@
-const API_TOKEN = 'x';
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOTMzMGE2MDk0ZDBhYzIwYThlOThlNTkwMTFhMzZjMiIsIm5iZiI6MTc0MDYzNDUzNi4zNTEsInN1YiI6IjY3YmZmOWE4MTRhNDM5NmNhZmM4ZDFmNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vTO_TxPpk3x6dpYKXdKLHRDUXP1Hwhx0wZsyrvCwKrY';
 
 let currentPage = 1;
 let totalPages = 1;
@@ -43,7 +43,7 @@ async function loadLatest() {
 // 🎭 Carregar filmes por gênero (na genre.html)
 async function loadGenrePage(page = 1) {
   const params = new URLSearchParams(window.location.search);
-  const genreId = params.get('genre'); // Confere se é 'genre' (não 'genero')
+  const genreId = params.get('genre');
   const genreName = params.get('nome');
 
   currentGenreId = genreId;
@@ -106,6 +106,10 @@ if (window.location.pathname.includes('genre.html')) {
   loadGenrePage();
 }
 
+if (window.location.pathname.includes('search.html')) {
+  loadSearchPage();
+}
+
 // 🔍 Função de busca por nome
 async function searchMovies(page = 1) {
   const query = document.getElementById('searchInput').value.trim();
@@ -122,7 +126,7 @@ async function searchMovies(page = 1) {
   if (!container) {
     const section = document.createElement('div');
     section.innerHTML = `
-      <h2>🔍 Resultado da busca</h2>
+      <h1 id="movieData.title">🎬 title</h1>
       <div class="card-container" id="searchResults"></div>
       <div class="pagination">
         <button onclick="previousSearchPage()">⬅️ Anterior</button>
@@ -192,3 +196,53 @@ function previousPage() {
     loadGenrePage(currentPage - 1);
   }
 }
+
+//Página de busca
+// 🚀 Carregar a página de busca
+async function loadSearchPage() {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('query');
+
+  if (!query) {
+    document.getElementById('searchResult').innerHTML = '<p>Nenhum termo de busca informado.</p>';
+    return;
+  }
+
+  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=pt-BR&page=1`;
+  const data = await fetchAPI(url);
+
+  if (data.results.length === 0) {
+    document.getElementById('searchResult').innerHTML = `<p>Nenhum resultado encontrado para "${query}".</p>`;
+  } else {
+    renderMainResult(data.results[0]); // Mostra o primeiro resultado como destaque
+  }
+
+  // Carregar também os filmes populares
+  loadPopular();
+}
+
+// 🎨 Renderizar o card principal grande
+function renderMainResult(movie) {
+  const poster = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : 'https://via.placeholder.com/300x450?text=Sem+Imagem';
+
+  const year = movie.release_date ? movie.release_date.slice(0, 4) : 'Ano desconhecido';
+  const overview = movie.overview || 'Sem sinopse disponível.';
+  const rating = movie.vote_average ? `${movie.vote_average.toFixed(1)}/10` : 'Sem nota';
+
+  const card = `
+    <div class="main-result-card">
+      <img src="${poster}" alt="${movie.title}">
+      <div class="info">
+        <h2>${movie.title} (${year})</h2>
+        <p><strong>⭐ Nota:</strong> ${rating}</p>
+        <p><strong>Sinopse:</strong> ${overview}</p>
+        <button onclick="openModal(${movie.id})">Ver Detalhes</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('searchResult').innerHTML = card;
+}
+

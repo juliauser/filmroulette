@@ -5,14 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roletando</title>
   <link rel="stylesheet" href="style.css">
+
+  <script>
+    function handleSearch() {
+  const query = document.getElementById('searchInput').value.trim();
+  if (query) {
+    window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+  }
+}
+  </script>
 </head>
 <body>
   <main>
   <!-- Navbar -->
   <header class="navbar">
     <a href="index.html" class="logo">Roletando</a>
-    <input type="text" id="searchInput" placeholder="Procure por filmes, categorias..." class="search-bar">
-    <button class="search-btn" onclick="searchMovies()">Pesquisar</button>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
     <nav>
       <a href="index.html" class="active">Início</a>
       <a href="categorias.html">Categorias</a>

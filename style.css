@@ -34,8 +34,8 @@ body, html {
 .navbar .logo {
     font-size: 20px;
     font-weight: bold;
-    margin-right: 270px;
-    margin-left: 20px;
+    margin-right: 170px;
+    margin-left: 40px;
 }
 
 .navbar a.active {
@@ -44,7 +44,7 @@ body, html {
     font-weight: bold;
 }
 
-.navbar profile-icon {
+.navbar .profile-icon {
   font-size: 24px;
   cursor: pointer;
   margin-left: 40px;
@@ -70,8 +70,20 @@ body, html {
   border-radius: 10px;
   border: none;
   min-width: 120px;
-  max-width: 280px;
-  width: 130%;
+  width: 50%;
+}
+
+.search-input {
+  margin: 0.5rem 0.3rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 0px;
+  width: 50%;
 }
 
 .search-btn {
@@ -83,7 +95,7 @@ body, html {
   border-radius: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 80px;
+  margin-right: 20px;
 }
 
 .search-btn:hover {
@@ -444,13 +456,6 @@ footer.footer {
   flex-direction: column;
 }
 
-.profile-icon {
-  font-size: 24px;
-  cursor: pointer;
-  margin-left: 40px;
-  margin-right: 20px;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -508,6 +513,47 @@ footer.footer {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+/* pesquisa de filmes */
+
+.main-result-card {
+  display: flex;
+  gap: 20px;
+  background-color: #6e3979;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.main-result-card img {
+  width: 300px;
+  border-radius: 12px;
+}
+
+.main-result-card .info {
+  flex: 1;
+}
+
+.main-result-card h2 {
+  margin-top: 0;
+}
+
+.main-result-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #56285f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.main-result-card button:hover {
+  background-color: #c3afc7;
+}
+
+
 
 @media (max-width: 900px) {
   .conteudo-principal {

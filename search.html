@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎞️ Filmes por Gênero</title>
+  <title>Resultado da Busca</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
-  <header class="navbar">
+
+    <header class="navbar">
     <a href="index.html" class="logo">Roletando</a>
       <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
@@ -23,32 +23,25 @@
   </header>
 
   <div class="container">
-    <h1 id="genreTitle">🎬 Gênero</h1>
+    <h1>🔍 Resultado da Busca</h1>
 
-    <div class="card-container" id="genreContainer"></div>
+    <div id="searchResult"></div>
 
-      
-      </div>
-      </div>
-    </div>
-
-    <div id="pagination" class="pagination">
-  <button onclick="previousPage()">⬅️ Anterior</button>
-  <span id="currentPage">Página 1</span>
-  <button onclick="nextPage()">Próxima ➡️</button>
-</div>
-
-  <!-- Modal -->
-<div id="movieModal" class="modal">
-  <div class="modal-content">
-    <span class="close-button" onclick="closeModal()">&times;</span>
-    <h2 id="modalTitle"></h2>
-    <p id="modalInfo"></p>
-    <p id="modalOverview"></p>
+    <h2>🔥 Filmes Populares</h2>
+    <div class="card-container" id="popularContainer"></div>
   </div>
-</div>
 
-<!-- Rodapé -->
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalInfo"></p>
+      <p id="modalOverview"></p>
+      <div id="modalTrailer"></div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
   <footer class="footer">
     <button class="button-btn">Contato</button>
     <div class="footer-things">
