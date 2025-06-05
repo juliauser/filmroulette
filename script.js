@@ -21,26 +21,26 @@ function scrollRight(button) {
   row.scrollLeft += 300;
 }
 
-// 🔗 Redireciona para a página de gênero
+// Redireciona para a página de gênero
 function goToGenre(id, nome) {
   window.location.href = `genre.html?genre=${id}&nome=${nome}`;
 }
 
-// 🔥 Carregar filmes populares na index
+// Carregar filmes populares na index
 async function loadPopular() {
   const url = 'https://api.themoviedb.org/3/movie/popular?language=pt-BR';
   const data = await fetchAPI(url);
   renderMovies(data.results, 'popularContainer');
 }
 
-// 🎬 Carregar lançamentos na index
+// Carregar lançamentos na index
 async function loadLatest() {
   const url = 'https://api.themoviedb.org/3/movie/now_playing?language=pt-BR';
   const data = await fetchAPI(url);
   renderMovies(data.results, 'latestContainer');
 }
 
-// 🎭 Carregar filmes por gênero (na genre.html)
+// Carregar filmes por gênero (na genre.html)
 async function loadGenrePage(page = 1) {
   const params = new URLSearchParams(window.location.search);
   const genreId = params.get('genre');
@@ -62,7 +62,7 @@ async function loadGenrePage(page = 1) {
   document.getElementById('currentPage').innerText = `Página ${currentPage}`;
 }
 
-// 🔧 Função para buscar dados da API
+// Função para buscar dados da API
 async function fetchAPI(url) {
   const options = {
     method: 'GET',
@@ -75,7 +75,7 @@ async function fetchAPI(url) {
   return await res.json();
 }
 
-// 🖼️ Renderizar filmes em qualquer container
+// Renderizar filmes em qualquer container
 function renderMovies(movies, containerId) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -248,6 +248,8 @@ function renderMainResult(movie) {
 
   document.getElementById('searchResult').innerHTML = card;
 }
+
+
 
 //profile
 const profileIcon = document.querySelector('.profile-icon');

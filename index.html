@@ -15,9 +15,10 @@
 }
   </script>
 </head>
+
 <body>
   <main>
-  <!-- Navbar -->
+  <!-- ======= navbar ======= -->
   <header class="navbar">
     <a href="index.html" class="logo">Roletando</a>
       <div class="search-bar">
@@ -32,7 +33,7 @@
     <div class="profile-icon">👤</div>
   </header>
 
-  <!-- Categorias -->
+  <!-- ======= genre ======= -->
   <section class="genre-buttons">
     <button onclick="getMovies()">Todos</button>
       <button onclick="goToGenre(28, 'Ação')">Ação</button>
@@ -46,7 +47,7 @@
 
 <div class="conteudo-principal">
 
-  <!-- Modal -->
+  <!-- ======= modal ======= -->
 <div id="movieModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -57,83 +58,112 @@
   </div>
 </div>
 
-  <!-- Lado esquerdo: Listas de filmes -->
-  <div class="filmes-listas">
-    <!-- Populares -->
-    <section class="bloco-filmes">
-      <div class="row-header">
-        <h2>Populares</h2>
-        <a href="vertodos.html">Ver Todos</a>
-      </div>
+<!-- ======= movies ======= -->
+<section class="filmes-listas">
 
-      <div class="filmes-row-wrapper">
+  <!-- ======= Populares ======= -->
+  <section class="bloco-filmes">
     
-    
-    <div class="card-container filmes-row" id="popularContainer">
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Shrek">
-        <p>Shrek</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Os Incríveis">
-        <p>Os Incríveis</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="As tranças do careca">
-        <p>As tranças do careca</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Outro filme">
-        <p>Outro filme</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Outro filme">
-        <p>Outro filme</p>
-      </div>
-      
+    <!-- Cabeçalho do bloco -->
+    <div class="row-header">
+      <h2>Populares</h2>
+      <a href="vertodos.html" class="ver-todos">Ver Todos</a>
     </div>
-    
-    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
-    <button class="scroll-btn scroll-right" onclick="scrollRight(this)">➡</button>
-      </div>
-    </section>
 
-    <!-- Lançamentos -->
-    <section class="bloco-filmes">
-  <div class="row-header">
-    <h2>Lançamentos</h2>
-    <a href="vertodos.html">Ver Todos</a>
-  </div>
+    <!-- Wrapper dos filmes e botões de scroll -->
+    <div class="filmes-row-wrapper">
 
-  <div class="filmes-row-wrapper">
-    <button class="scroll-btn scroll-left" onclick="scrollLeft(this)">⬅</button>
-    
-    <div class="card-container filmes-row" id="latestContainer">
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Shrek">
-        <p>Shrek</p>
+      <!-- Lista de filmes -->
+      <div class="card-container filmes-row" id="popularContainer">
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Shrek">
+          <p class="movie-title">Shrek</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Os Incríveis">
+          <p class="movie-title">Os Incríveis</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de As Tranças do Careca">
+          <p class="movie-title">As Tranças do Careca</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Outro Filme">
+          <p class="movie-title">Outro Filme</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Outro Filme">
+          <p class="movie-title">Outro Filme</p>
+        </article>
+
       </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Os Incríveis">
-        <p>Os Incríveis</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="As tranças do careca">
-        <p>As tranças do careca</p>
-      </div>
-      <div class="movie-card">
-        <img src="images/example.jpg" alt="Outro filme">
-        <p>Outro filme</p>
-      </div>
+
+      <!-- Botões de scroll -->
+      <button class="scroll-btn scroll-left" onclick="scrollLeft(this)" aria-label="Scroll para esquerda">⬅</button>
+      <button class="scroll-btn scroll-right" onclick="scrollRight(this)" aria-label="Scroll para direita">➡</button>
+
     </div>
+
+  </section>
+
+  <!-- ======= Lançamentos ======= -->
+  <section class="bloco-filmes">
     
-    <button class="scroll-btn scroll-right" onclick="scrollRight(this)">➡</button>
-  </div>
+    <!-- Cabeçalho do bloco -->
+    <div class="row-header">
+      <h2>Lançamentos</h2>
+      <a href="vertodos.html" class="ver-todos">Ver Todos</a>
+    </div>
+
+    <!-- Wrapper dos filmes e botões de scroll -->
+    <div class="filmes-row-wrapper">
+
+      <!-- Lista de filmes -->
+      <div class="card-container filmes-row" id="latestContainer">
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Shrek">
+          <p class="movie-title">Shrek</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Os Incríveis">
+          <p class="movie-title">Os Incríveis</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de As Tranças do Careca">
+          <p class="movie-title">As Tranças do Careca</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Outro Filme">
+          <p class="movie-title">Outro Filme</p>
+        </article>
+
+        <article class="movie-card">
+          <img src="images/example.jpg" alt="Pôster de Outro Filme">
+          <p class="movie-title">Outro Filme</p>
+        </article>
+
+      </div>
+
+      <!-- Botões de scroll -->
+      <button class="scroll-btn scroll-left" onclick="scrollLeft(this)" aria-label="Scroll para esquerda">⬅</button>
+      <button class="scroll-btn scroll-right" onclick="scrollRight(this)" aria-label="Scroll para direita">➡</button>
+
+    </div>
+
+  </section>
+
 </section>
 
-  <!-- Lado direito: Roleta -->
-  
-</div>
+<!-- ======= roleta ======= -->
 <div>
   <section class="roleta-section">
     <div class="roleta-container">
@@ -146,10 +176,11 @@
       <button>Adicionar</button>
     </div>
   </section>
+
 </div>
 </main>
 
-  <!-- Rodapé -->
+  <!-- ======= footer ======= -->
   <footer class="footer">
     <button class="button-btn">Contato</button>
     <div class="footer-things">
