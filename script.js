@@ -110,6 +110,11 @@ if (window.location.pathname.includes('search.html')) {
   loadSearchPage();
 }
 
+// Chame loadGenres apenas quando estiver na página genrelist.html
+if (window.location.pathname.includes('genrelist.html')) {
+  loadGenres(); // <-- Chame a nova função aqui
+}
+
 // 🔍 Função de busca por nome
 async function searchMovies(page = 1) {
   const query = document.getElementById('searchInput').value.trim();
@@ -250,7 +255,6 @@ function renderMainResult(movie) {
 }
 
 
-
 //profile
 const profileIcon = document.querySelector('.profile-icon');
 profileIcon.addEventListener('click', () => {
@@ -320,4 +324,25 @@ avatarSelect.addEventListener('change', () => {
 function saveUserData() {
   users[loggedUser] = userData;
   localStorage.setItem('users', JSON.stringify(users));
+}
+
+// Nova função para carregar a lista de gêneros
+async function loadGenres() {
+  const url = 'https://api.themoviedb.org/3/genre/movie/list?language=pt-BR';
+  const data = await fetchAPI(url);
+  const genres = data.genres;
+
+  const container = document.getElementById('genresContainer');
+  if (container) { // Verifica se o container existe
+    container.innerHTML = ''; // Limpa o container antes de adicionar novos gêneros
+
+    genres.forEach(genre => {
+      const genreCard = document.createElement('div');
+      genreCard.classList.add('genre-card'); // Adicione uma classe CSS para estilização
+      genreCard.innerText = genre.name;
+      // Ao clicar no gênero, redireciona para genre.html com os parâmetros
+      genreCard.onclick = () => goToGenre(genre.id, genre.name); 
+      container.appendChild(genreCard);
+    });
+  }
 }
