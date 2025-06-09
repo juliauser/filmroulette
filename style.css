@@ -136,8 +136,16 @@ body, html {
 }
 
 .bloco-filmes:hover {
-    transform: scale(1.0);
-    box-shadow: 0 0 15px rgba(122, 48, 227, 0.7), 0 0 40px rgba(122, 48, 227, 0.2);
+  transform: scale(1.0);
+  box-shadow:
+    0 0 15px rgba(122, 48, 227, 0.7),
+    0 0 40px rgba(122, 48, 227, 0.2);
+}
+
+.row-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  padding: 7px;
 }
 
 .row-header {
