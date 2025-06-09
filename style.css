@@ -218,6 +218,18 @@ body, html {
     0 0 40px rgba(122, 48, 227, 0.2);
 }
 
+.row-header a {
+  color: #7A30E3; 
+  text-decoration: none;
+  font-weight: 600; 
+  transition: color 0.3s ease; 
+}
+
+.row-header a:hover {
+  color: #BB86FC; 
+  transform: scale(1.0);
+}
+
 .row-header h2 {
   margin: 0;
   font-size: 1rem;
