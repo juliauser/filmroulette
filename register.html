@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro</title>
-  <style>
-    body { text-align: center; padding: 50px; font-family: sans-serif; }
-    input, button { padding: 0.5rem; margin: 0.5rem; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main>
 <!-- Navbar -->
   <header class="navbar">
     <a href="index.html" class="logo">Roletando</a>
@@ -23,7 +22,6 @@
     </nav>
     <div class="profile-icon">👤</div>
   </header>
-
 
   <h1>Cadastro</h1>
   <input type="text" id="username" placeholder="Nome de usuário"><br>
@@ -61,16 +59,26 @@
         window.location.href = 'profile.html';
       }
     }
-
-    <!-- Rodapé -->
-  <footer class="footer">
-    <button class="button-btn">Contato</button>
-    <div class="footer-things">
-      <p>&copy; 2025 Roletando. </p>
-    </div>
-  </footer>
-  
   </script>
+  </main>
+    <!-- Rodapé -->
+<footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>🎬 Roletando</h2>
+      <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+    </div>
 
+    <div class="footer-links">
+      <ul>
+        <li><a href="index.html" class="active">Início</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+  </div>
+</footer>
 </body>
 </html>

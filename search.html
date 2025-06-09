@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header class="navbar">
+  <main>
+        <header class="navbar">
     <a href="index.html" class="logo">Roletando</a>
       <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
@@ -47,15 +47,26 @@
       <span id="searchPageIndicator">Página 1</span>
       <button onclick="nextSearchPage()">Próxima ➡️</button>
     </div>
-
+    </main>
   <!-- Rodapé -->
-  <footer class="footer">
-    <button class="button-btn">Contato</button>
-    <div class="footer-things">
-      <p>&copy; 2025 Roletando. </p>
+  <footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>🎬 Roletando</h2>
+      <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
     </div>
-  </footer>
 
+    <div class="footer-links">
+      <ul>
+        <li><a href="index.html" class="active">Início</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+  </div>
+</footer>
   <script src="script.js"></script>
 </body>
 </html>
