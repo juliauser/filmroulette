@@ -4,7 +4,11 @@ let currentPage = 1;
 let totalPages = 1;
 let currentGenreId = null;
 let currentGenreName = '';
+let currentSearchQuery = '';
+let currentSearchPage = 1;
+let searchTotalPages = 1;
 
+// --- Funções de Roleta (Mantido como estava) ---
 function girarRoleta() {
   const filmes = ['Shrek', 'Os Incríveis', 'Coraline', 'Megamente'];
   const escolhido = filmes[Math.floor(Math.random() * filmes.length)];
@@ -21,48 +25,7 @@ function scrollRight(button) {
   row.scrollLeft += 300;
 }
 
-// Redireciona para a página de gênero
-function goToGenre(id, nome) {
-  window.location.href = `genre.html?genre=${id}&nome=${nome}`;
-}
-
-// Carregar filmes populares na index
-async function loadPopular() {
-  const url = 'https://api.themoviedb.org/3/movie/popular?language=pt-BR';
-  const data = await fetchAPI(url);
-  renderMovies(data.results, 'popularContainer');
-}
-
-// Carregar lançamentos na index
-async function loadLatest() {
-  const url = 'https://api.themoviedb.org/3/movie/now_playing?language=pt-BR';
-  const data = await fetchAPI(url);
-  renderMovies(data.results, 'latestContainer');
-}
-
-// Carregar filmes por gênero (na genre.html)
-async function loadGenrePage(page = 1) {
-  const params = new URLSearchParams(window.location.search);
-  const genreId = params.get('genre');
-  const genreName = params.get('nome');
-
-  currentGenreId = genreId;
-  currentGenreName = genreName;
-  currentPage = page;
-
-  document.getElementById('genreTitle').innerText = `🎬 ${genreName}`;
-
-  const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=pt-BR&sort_by=popularity.desc&page=${page}`;
-  const data = await fetchAPI(url);
-
-  renderMovies(data.results, 'genreContainer');
-
-  totalPages = data.total_pages;
-
-  document.getElementById('currentPage').innerText = `Página ${currentPage}`;
-}
-
-// Função para buscar dados da API
+// --- Funções de API e Renderização Comuns ---
 async function fetchAPI(url) {
   const options = {
     method: 'GET',
@@ -71,14 +34,23 @@ async function fetchAPI(url) {
       Authorization: `Bearer ${API_TOKEN}`
     }
   };
-  const res = await fetch(url, options);
-  return await res.json();
+  try {
+    const res = await fetch(url, options);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Erro ao buscar dados da API:", error);
+    return null;
+  }
 }
 
-// Renderizar filmes em qualquer container
 function renderMovies(movies, containerId) {
   const container = document.getElementById(containerId);
-  container.innerHTML = '';
+  if (!container) {
+    console.error(`Container com ID '${containerId}' não encontrado.`);
+    return;
+  }
+  container.innerHTML = ''; // Limpa o container antes de adicionar filmes
 
   movies.forEach(movie => {
     const poster = movie.poster_path
@@ -91,67 +63,12 @@ function renderMovies(movies, containerId) {
       <img src="${poster}" alt="${movie.title}">
       <p>${movie.title}</p>
     `;
-    card.onclick = () => openModal(movie.id);  // <-- Clique abre o modal
+    card.onclick = () => openModal(movie.id);
     container.appendChild(card);
   });
 }
 
-// 🚀 Inicializa dependendo da página
-if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-  loadPopular();
-  loadLatest();
-}
-
-if (window.location.pathname.includes('genre.html')) {
-  loadGenrePage();
-}
-
-if (window.location.pathname.includes('search.html')) {
-  loadSearchPage();
-}
-
-// Chame loadGenres apenas quando estiver na página genrelist.html
-if (window.location.pathname.includes('genrelist.html')) {
-  loadGenres(); // <-- Chame a nova função aqui
-}
-
-// 🔍 Função de busca por nome
-async function searchMovies(page = 1) {
-  const query = document.getElementById('searchInput').value.trim();
-  if (!query) return;
-
-  currentSearchQuery = query;
-  currentSearchPage = page;
-
-  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=pt-BR&page=${page}`;
-  const data = await fetchAPI(url);
-
-  // Cria container de resultados se não existir
-  let container = document.getElementById('searchTitle').innerText = `🎬 Resultados para "${query}"`;
-  if (!container) {
-    const section = document.createElement('div');
-    section.innerHTML = `
-      <h1 id="searchTitle">🎬 Resultados para "${query}"</h1>
-      <div class="card-container" id="searchResults"></div>
-
-      <div class="pagination">
-        <button onclick="previousSearchPage()">⬅️ Anterior</button>
-        <span id="searchPageIndicator">Página ${currentSearchPage}</span>
-        <button onclick="nextSearchPage()">Próxima ➡️</button>
-      </div>
-    `;
-    document.querySelector('.container').appendChild(section);
-    container = document.getElementById('searchTitle').innerText = `🎬 Resultados para "${query}"`;
-  }
-
-  container.innerHTML = '';
-  renderMovies(data.results, 'searchResults');
-
-  searchTotalPages = data.total_pages;
-  document.getElementById('searchPageIndicator').innerText = `Página ${currentSearchPage}`;
-}
-
-// 📖 Abre o modal com mais informações do filme
+// --- Funções do Modal de Detalhes do Filme ---
 async function openModal(movieId) {
   try {
     const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR`;
@@ -172,6 +89,7 @@ async function openModal(movieId) {
     const trailer = videoData.results.find(
       vid => vid.type === 'Trailer' && vid.site === 'YouTube'
     );
+    // CORREÇÃO: Sintaxe correta para URL do YouTube
     const trailerEmbed = trailer
       ? `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`
       : `<p>🎬 Trailer não disponível.</p>`;
@@ -179,18 +97,32 @@ async function openModal(movieId) {
     document.getElementById('modalTitle').innerText = `${title} (${year})`;
     document.getElementById('modalInfo').innerText = `${duration} | ${genres} | ⭐ ${rating}`;
     document.getElementById('modalOverview').innerText = overview;
-    document.getElementById('modalTrailer').innerHTML = trailerEmbed;
+    // Certifique-se de que o elemento 'modalTrailer' existe no seu modal HTML
+    const modalTrailerElement = document.getElementById('modalTrailer');
+    if (modalTrailerElement) {
+        modalTrailerElement.innerHTML = trailerEmbed;
+    } else {
+        console.warn("Elemento 'modalTrailer' não encontrado no modal.");
+    }
+    
 
     document.getElementById('movieModal').style.display = 'block';
   } catch (error) {
-    console.error('Erro ao carregar dados do filme:', error);
+    console.error('Erro ao carregar dados do filme no modal:', error);
   }
 }
 
 function closeModal() {
   document.getElementById('movieModal').style.display = 'none';
+  // Opcional: Pausar o vídeo do trailer ao fechar o modal
+  const modalTrailerElement = document.getElementById('modalTrailer');
+  if (modalTrailerElement) {
+    modalTrailerElement.innerHTML = ''; // Limpa o iframe para parar o vídeo
+  }
 }
 
+
+// --- Funções de Navegação e Paginação ---
 function nextPage() {
   if (currentPage < totalPages) {
     loadGenrePage(currentPage + 1);
@@ -203,33 +135,186 @@ function previousPage() {
   }
 }
 
-//Página de busca
-// 🚀 Carregar a página de busca
-async function loadSearchPage(page = 1) {
-  const params = new URLSearchParams(window.location.search);
-  const query = params.get('query');
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,         // Rola para o topo (posição 0 na vertical)
+        behavior: 'smooth' // Faz a rolagem de forma suave e animada
+    });
+}
 
-  if (!query) {
-    document.getElementById('searchResult').innerHTML = '<p>Nenhum termo de busca informado.</p>';
+
+// Redireciona para a página de gênero específico
+function goToGenre(id, nome) {
+  window.location.href = `genre.html?genre=${id}&nome=${nome}`;
+}
+
+
+// --- Funções da Página Inicial (index.html) ---
+async function loadPopular() {
+  const url = 'https://api.themoviedb.org/3/movie/popular?language=pt-BR';
+  const data = await fetchAPI(url);
+  renderMovies(data.results, 'popularContainer');
+}
+
+async function loadLatest() {
+  const url = 'https://api.themoviedb.org/3/movie/now_playing?language=pt-BR';
+  const data = await fetchAPI(url);
+  renderMovies(data.results, 'latestContainer');
+}
+
+
+// --- Funções da Página de Gênero Específico (genre.html) ---
+async function loadGenrePage(page = 1) {
+  const params = new URLSearchParams(window.location.search);
+  const genreId = params.get('genre');
+  const genreName = params.get('nome');
+
+  if (!genreId || !genreName) {
+    console.error("ID ou nome do gênero não encontrados na URL para genre.html");
+    document.getElementById('genreTitle').innerText = 'Gênero não encontrado';
+    document.getElementById('genreContainer').innerHTML = '<p>Por favor, selecione um gênero válido.</p>';
     return;
   }
 
-  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=pt-BR&page=1`;
+  currentGenreId = genreId;
+  currentGenreName = genreName;
+  currentPage = page;
+
+  document.getElementById('genreTitle').innerText = `🎬 ${genreName}`;
+
+  const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=pt-BR&sort_by=popularity.desc&page=${page}`;
   const data = await fetchAPI(url);
 
-  if (data.results.length === 0) {
-    document.getElementById('searchResult').innerHTML = `<p>Nenhum resultado encontrado para "${query}".</p>`;
-  } else {
-    renderMainResult(data.results[0]); // Mostra o primeiro resultado como destaque
-    // Mostra o restante na lista
-    const resultsContainer = document.getElementById('searchResults');
-  }
- 
-  // Carregar também os filmes populares
-  loadPopular();
+  renderMovies(data.results, 'genreContainer');
+
+  totalPages = data.total_pages;
+  document.getElementById('currentPage').innerText = `Página ${currentPage}`;
 }
 
-// 🎨 Renderizar o card principal grande
+
+// --- Funções da Página de Listagem de Gêneros (genrelist.html) ---
+async function fetchMoviesByGenre(genreId, limit = 15) {
+    const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=pt-BR&sort_by=popularity.desc&page=1`;
+    const data = await fetchAPI(url);
+    return data.results ? data.results.slice(0, limit) : [];
+}
+
+async function loadGenres() {
+    console.log("Carregando gêneros...");
+    const url = 'https://api.themoviedb.org/3/genre/movie/list?language=pt-BR';
+    const data = await fetchAPI(url);
+    const genres = data.genres;
+
+    const container = document.getElementById('genresContainer');
+    if (!container) {
+        console.error("Elemento 'genresContainer' não encontrado na genrelist.html.");
+        return;
+    }
+
+    container.innerHTML = ''; // Limpa antes de adicionar
+
+    for (const genre of genres) {
+        const section = document.createElement('div');
+        section.classList.add('genre-section');
+
+        // Crie um contêiner para o cabeçalho da seção do gênero
+const sectionHeader = document.createElement('div');
+sectionHeader.classList.add('genre-section-header'); // Adicione uma nova classe para estilização
+
+// Título do gênero
+const title = document.createElement('h2');
+title.innerText = genre.name;
+sectionHeader.appendChild(title); // Adicione o título ao novo contêiner
+
+// Link "Ver todos"
+const seeAllLink = document.createElement('a');
+seeAllLink.href = `genre.html?genre=${genre.id}&nome=${genre.name}`;
+seeAllLink.innerText = 'Ver todos';
+seeAllLink.classList.add('see-all-link');
+sectionHeader.appendChild(seeAllLink); // Adicione o link ao novo contêiner
+
+section.appendChild(sectionHeader); // Adicione o novo contêiner à seção principal
+
+        // Container dos filmes
+        const movieRow = document.createElement('div');
+        movieRow.classList.add('movie-row');
+
+        // Buscar os filmes do gênero
+        let movies = [];
+        try {
+            movies = await fetchMoviesByGenre(genre.id, 15);
+        } catch (error) {
+            console.error(`Erro ao buscar filmes do gênero "${genre.name}":`, error);
+            continue; // Pula para o próximo gênero se houver um erro
+        }
+
+        if (movies && movies.length > 0) {
+            movies.forEach(movie => {
+                const poster = movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                    : 'https://via.placeholder.com/300x450?text=Sem+Imagem';
+
+                const card = document.createElement('div');
+                card.classList.add('movie-card');
+                // CORREÇÃO: Sintaxe correta para template literals na URL da imagem
+                card.innerHTML = `
+                    <img src="${poster}" alt="${movie.title}">
+                    <p>${movie.title}</p>
+                `;
+                card.onclick = () => openModal(movie.id);
+                movieRow.appendChild(card);
+            });
+        } else {
+            const noMoviesMessage = document.createElement('p');
+            noMoviesMessage.innerText = 'Nenhum filme encontrado para este gênero no momento.';
+            movieRow.appendChild(noMoviesMessage);
+        }
+
+        section.appendChild(movieRow);
+        container.appendChild(section);
+    }
+}
+
+
+// --- Funções da Página de Busca (search.html) ---
+// Essa função está mais complexa devido à tentativa de criar um container dinamicamente.
+// Recomendo que a estrutura HTML para resultados de busca já exista na página search.html
+// para simplificar a renderização.
+async function searchMovies(page = 1) {
+  const query = document.getElementById('searchInput').value.trim();
+  if (!query) return;
+
+  currentSearchQuery = query;
+  currentSearchPage = page;
+
+  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=pt-BR&page=${page}`;
+  const data = await fetchAPI(url);
+
+  const searchTitleElement = document.getElementById('searchTitle');
+  const searchResultsContainer = document.getElementById('searchResults');
+  const searchPageIndicator = document.getElementById('searchPageIndicator');
+
+  if (searchTitleElement) searchTitleElement.innerText = `🎬 Resultados para "${query}"`;
+  if (searchResultsContainer) renderMovies(data.results, 'searchResults');
+  
+  searchTotalPages = data.total_pages;
+  if (searchPageIndicator) searchPageIndicator.innerText = `Página ${currentSearchPage}`;
+}
+
+// Funções de paginação para busca (precisam ser implementadas para a página search.html)
+function previousSearchPage() {
+    if (currentSearchPage > 1) {
+        searchMovies(currentSearchPage - 1);
+    }
+}
+
+function nextSearchPage() {
+    if (currentSearchPage < searchTotalPages) {
+        searchMovies(currentSearchPage + 1);
+    }
+}
+
+// Renderiza o card principal grande na página de busca (se houver um elemento 'searchResult')
 function renderMainResult(movie) {
   const poster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -250,99 +335,124 @@ function renderMainResult(movie) {
       </div>
     </div>
   `;
+  const searchResultElement = document.getElementById('searchResult');
+  if (searchResultElement) {
+      searchResultElement.innerHTML = card;
+  }
+}
 
-  document.getElementById('searchResult').innerHTML = card;
+async function loadSearchPage(page = 1) {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('query');
+
+  if (!query) {
+    const searchResultElement = document.getElementById('searchResult');
+    if (searchResultElement) searchResultElement.innerHTML = '<p>Nenhum termo de busca informado.</p>';
+    return;
+  }
+
+  const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=pt-BR&page=${page}`;
+  const data = await fetchAPI(url);
+
+  if (data.results.length === 0) {
+    const searchResultElement = document.getElementById('searchResult');
+    if (searchResultElement) searchResultElement.innerHTML = `<p>Nenhum resultado encontrado para "${query}".</p>`;
+  } else {
+    // Renderiza o primeiro resultado como destaque (se houver um elemento searchResult)
+    renderMainResult(data.results[0]); 
+    
+    // Renderiza os outros resultados na lista (se houver um elemento searchResults)
+    const resultsContainer = document.getElementById('searchResults');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = ''; // Limpa antes de renderizar
+        // Renderiza os resultados restantes, a partir do segundo
+        renderMovies(data.results.slice(1), 'searchResults'); 
+    }
+  }
+  loadPopular(); // Carregar também os filmes populares
+}
+
+// --- Inicialização baseada na URL da Página ---
+if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+  loadPopular();
+  loadLatest();
+} else if (window.location.pathname.includes('genre.html')) {
+  loadGenrePage();
+} else if (window.location.pathname.includes('search.html')) {
+  loadSearchPage();
+} else if (window.location.pathname.includes('genrelist.html')) {
+  loadGenres(); // Chama a função para carregar todos os gêneros
 }
 
 
-//profile
+// --- Funções de Perfil de Usuário (Mantido como estava) ---
 const profileIcon = document.querySelector('.profile-icon');
-profileIcon.addEventListener('click', () => {
-  window.location.href = 'profile.html';
-});
+if (profileIcon) {
+  profileIcon.addEventListener('click', () => {
+    window.location.href = 'profile.html';
+  });
+}
 
+// Verifica se há um usuário logado e dados de usuário antes de tentar manipulá-los
 const users = JSON.parse(localStorage.getItem('users')) || {};
 const loggedUser = localStorage.getItem('loggedUser');
-
 const userData = users[loggedUser];
 
-// Mostrar nome
-document.getElementById('username').textContent = loggedUser;
+if (loggedUser && userData) {
+  const usernameElement = document.getElementById('username');
+  if (usernameElement) usernameElement.textContent = loggedUser;
 
-// Mostrar listas
-const listsContainer = document.getElementById('lists-container');
-listsContainer.innerHTML = '';
+  const listsContainer = document.getElementById('lists-container');
+  if (listsContainer) {
+    listsContainer.innerHTML = '';
+    userData.lists.forEach(list => {
+      const li = document.createElement('li');
+      li.textContent = list;
+      listsContainer.appendChild(li);
+    });
+  }
 
-userData.lists.forEach(list => {
-  const li = document.createElement('li');
-  li.textContent = list;
-  listsContainer.appendChild(li);
-});
+  const soundSelect = document.getElementById('sound-select');
+  const animationSelect = document.getElementById('animation-select');
 
-// Carregar configurações
-const soundSelect = document.getElementById('sound-select');
-const animationSelect = document.getElementById('animation-select');
+  if (soundSelect) soundSelect.value = userData.rouletteSound || '';
+  if (animationSelect) animationSelect.value = userData.rouletteAnimation || '';
 
-soundSelect.value = userData.rouletteSound;
-animationSelect.value = userData.rouletteAnimation;
+  const saveButton = document.querySelector('.save-button');
+  if (saveButton) {
+    saveButton.addEventListener('click', () => {
+      if (soundSelect) userData.rouletteSound = soundSelect.value;
+      if (animationSelect) userData.rouletteAnimation = animationSelect.value;
 
-// Salvar configurações
-document.querySelector('.save-button').addEventListener('click', () => {
-  userData.rouletteSound = soundSelect.value;
-  userData.rouletteAnimation = animationSelect.value;
+      users[loggedUser] = userData;
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('Configurações salvas!');
+    });
+  }
 
-  users[loggedUser] = userData;
-  localStorage.setItem('users', JSON.stringify(users));
+  const avatarSelect = document.getElementById('avatar-select');
+  const profilePhoto = document.querySelector('.profile-photo');
 
-  alert('Configurações salvas!');
-});
+  if (avatarSelect) avatarSelect.value = userData.avatar || '👤';
+  if (profilePhoto) profilePhoto.textContent = userData.avatar || '👤';
+  if (usernameElement) usernameElement.textContent = userData.username || 'Usuário';
 
-// Logout
+  if (avatarSelect) {
+    avatarSelect.addEventListener('change', () => {
+      userData.avatar = avatarSelect.value;
+      if (profilePhoto) profilePhoto.textContent = userData.avatar;
+      saveUserData();
+    });
+  }
+
+  function saveUserData() {
+    users[loggedUser] = userData;
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+}
+
+// Função de logout (certifique-se de ter um botão no HTML que chame logout())
 function logout() {
   localStorage.removeItem('loggedUser');
   window.location.href = 'login.html';
-}
-
-// selecionar elementos
-const avatarSelect = document.getElementById('avatar-select');
-const profilePhoto = document.querySelector('.profile-photo');
-const username = document.getElementById('username');
-
-// preencher informações
-avatarSelect.value = userData.avatar || '👤';
-profilePhoto.textContent = userData.avatar || '👤';
-username.textContent = userData.username || 'Usuário';
-
-// trocar avatar
-avatarSelect.addEventListener('change', () => {
-  userData.avatar = avatarSelect.value;
-  profilePhoto.textContent = userData.avatar;
-  saveUserData();
-});
-
-// salvar dados
-function saveUserData() {
-  users[loggedUser] = userData;
-  localStorage.setItem('users', JSON.stringify(users));
-}
-
-// Nova função para carregar a lista de gêneros
-async function loadGenres() {
-  const url = 'https://api.themoviedb.org/3/genre/movie/list?language=pt-BR';
-  const data = await fetchAPI(url);
-  const genres = data.genres;
-
-  const container = document.getElementById('genresContainer');
-  if (container) { // Verifica se o container existe
-    container.innerHTML = ''; // Limpa o container antes de adicionar novos gêneros
-
-    genres.forEach(genre => {
-      const genreCard = document.createElement('div');
-      genreCard.classList.add('genre-card'); // Adicione uma classe CSS para estilização
-      genreCard.innerText = genre.name;
-      // Ao clicar no gênero, redireciona para genre.html com os parâmetros
-      genreCard.onclick = () => goToGenre(genre.id, genre.name); 
-      container.appendChild(genreCard);
-    });
-  }
 }

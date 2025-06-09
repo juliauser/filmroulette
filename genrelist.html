@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gêneros</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gêneros</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="navbar">
-    <a href="index.html" class="logo">Roletando</a>
-    <div class="search-bar">
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
-      <button onclick="handleSearch()" class="search-btn">Pesquisar</button>
-    </div>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="genrelist.html" class="active">Gêneros</a>       
-        <a href="minhaslistas.html">Minhas Listas</a>
-    </nav>
-    <div class="profile-icon">👤</div>
-  </header>
-  
-  <main class="container">
-    <h1 id="genrelistTitle">Explorar Gêneros</h1>
-    <div id="genresContainer" class="genres-grid">
-          </div>
-  </main>
+  <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+    <div class="search-bar">
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+      <button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+    </div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="genrelist.html" class="active">Gêneros</a>        
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+  
+  <main class="container">
+    <h1 id="genrelistTitle">Gêneros</h1>
+    <div id="genresContainer" class="genres-grid">
+      </div>
+  </main>
 
-  <footer class="footer">
-    <button class="button-btn">Contato</button>
-    <div class="footer-things">
-      <p>© 2025 Roletando. </p>
-    </div>
-  </footer>
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeModal()">×</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalInfo"></p>
+      <p id="modalOverview"></p>
+      <div id="modalTrailer"></div> </div>
+  </div>
 
-  <script src="script.js"></script>
+  <footer class="footer">
+    <button class="button-btn">Contato</button>
+      <button class="button-btn return-to-top-btn" onclick="scrollToTop()">Topo</button>
+    <div class="footer-things">
+      <p>© 2025 Roletando. </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
