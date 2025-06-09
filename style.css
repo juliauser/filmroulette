@@ -14,6 +14,9 @@ body, html {
     position: relative;
 }
 
+main {
+    flex-grow: 1;
+}
 .navbar {
     display: flex;
     align-items: center;
@@ -425,6 +428,7 @@ body, html {
     gap: 2rem;
     padding: 2rem;
     flex-wrap: wrap;
+    flex-grow: 1;
     justify-content: center; 
 }
 
@@ -577,35 +581,59 @@ body, html {
     color: #987aad;
 }
 
-.footer {
-    background-color: #350756;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    min-height: 70px;
-    width: 100%;
-    box-sizing: border-box; 
+.custom-footer {
+  background-color: #350756;
+  color: #bbb;
+  font-size: 14px;
+  padding: 20px 10px 10px;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
 }
 
-.footer .button-btn {
-    padding: 0.8rem 1.0rem;
-    font-size: 1rem;
-    background-color: #7a30e3;
-    color: #fff;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    height: 50px;
-    margin: 5px 0;
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.footer .button-btn:hover {
-    background-color: #20013f;
+.footer-about h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-about p {
+  max-width: 500px;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.footer-links ul li a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #61146b;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #666;
 }
 
 .return-to-top-btn {
