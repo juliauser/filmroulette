@@ -132,11 +132,12 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: left;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 16px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    margin-bottom: 20px;
 }
 
 .bloco-filmes:hover {
