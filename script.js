@@ -275,6 +275,27 @@ section.appendChild(sectionHeader); // Adicione o novo contêiner à seção pri
     }
 }
 
+// --- Funções da Página de ver todos (vertodospopulares.html) ---
+async function loadAllPopularMovies(page = 1) {
+  const url = `https://api.themoviedb.org/3/movie/popular?language=pt-BR&page=${page}`;
+  const data = await fetchAPI(url);
+
+  if (!data || !data.results) {
+    console.error("Erro ao carregar filmes populares.");
+    return;
+  }
+
+  renderMovies(data.results, 'allPopularMoviesContainer');
+
+  totalPages = data.total_pages;
+  document.getElementById('currentPage').innerText = `Página ${page}`;
+}
+
+
+
+
+
+
 
 // --- Funções da Página de Busca (search.html) ---
 // Essa função está mais complexa devido à tentativa de criar um container dinamicamente.
