@@ -1,4 +1,4 @@
-const API_TOKEN = 'x';
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOTMzMGE2MDk0ZDBhYzIwYThlOThlNTkwMTFhMzZjMiIsIm5iZiI6MTc0MDYzNDUzNi4zNTEsInN1YiI6IjY3YmZmOWE4MTRhNDM5NmNhZmM4ZDFmNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vTO_TxPpk3x6dpYKXdKLHRDUXP1Hwhx0wZsyrvCwKrY';
 
 let currentPage = 1;
 let totalPages = 1;
@@ -456,3 +456,59 @@ function logout() {
   localStorage.removeItem('loggedUser');
   window.location.href = 'login.html';
 }
+
+function displayGenres(genres) {
+    const genresContainer = document.getElementById('genresContainer');
+    genres.forEach(genre => {
+        // Crie o elemento da seção de gênero
+        const genreSection = document.createElement('div');
+        genreSection.classList.add('genre-section'); // GARANTA ESSA CLASSE AQUI
+        genreSection.innerHTML = `
+                <h2>${genre.name}</h2>
+                <a href="#" class="see-all-link">Ver todos</a>
+            <div class="movies-list"></div> `;
+        genresContainer.appendChild(genreSection);
+
+        // Agora, dentro desta mesma função ou em outra, você adiciona os filmes
+        const moviesList = genreSection.querySelector('.movies-list');
+        // Você pode precisar adicionar uma classe aqui para a lista de filmes se ela não for o próprio .genre-section
+        // Por exemplo: moviesList.classList.add('filmes-row'); // Se você quer o comportamento de scroll dentro de uma div aninhada
+
+        genre.movies.forEach(movie => {
+            const movieCard = document.createElement('div');
+            movieCard.classList.add('movie-card'); // GARANTA ESSA CLASSE AQUI
+            movieCard.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+                <p>${movie.title}</p>
+            `;
+            moviesList.appendChild(movieCard); // Ou genreSection.appendChild(movieCard) se o moviesList não existir
+        });
+    });
+}
+
+// 2. Procure por manipulações de estilo diretas via JavaScript
+// Evite ao máximo definir estilos como display, width, flex-wrap diretamente no JS.
+// Exemplo ruim (a evitar):
+// someElement.style.display = 'block';
+// someElement.style.width = '200px';
+// someElement.style.flexWrap = 'wrap';
+
+// 3. Verifique listeners de eventos de redimensionamento de janela
+// Se houver um evento 'resize' que recalcula o layout, ele pode estar sobrescrevendo seu CSS.
+window.addEventListener('resize', () => {
+    // Verifique se há código aqui que modifica o layout dos cards ou de .genre-section
+});
+
+// 4. Se você estiver usando as setas de scroll (scroll-btn)
+// Certifique-se de que a lógica de scroll esteja apenas movendo a posição de scroll
+// e não alterando o display ou flex-wrap.
+// Exemplo:
+const scrollContainer = document.querySelector('.filmes-row'); // Ou .genre-section
+const scrollAmount = 200; // Ajuste conforme necessário
+
+document.querySelector('.scroll-right').addEventListener('click', () => {
+    scrollContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+    });
+});

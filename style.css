@@ -135,7 +135,7 @@ main {
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1200px;
+    display: flex;
 }
 
 .bloco-filmes:hover {
@@ -173,11 +173,21 @@ main {
 
 .filmes-row {
     display: flex;
+    flex-direction: row;
     overflow-x: auto;
     scroll-behavior: smooth;
     gap: 1rem;
     padding: 1rem 0;
     scrollbar-width: none;
+}
+
+.movies-row {
+    display: flex;
+    flex-direction: row;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1rem 0;
+    scrollbar-width: none; /* Firefox */
 }
 
 .filmes-row::-webkit-scrollbar {
@@ -219,13 +229,28 @@ main {
     box-sizing: border-box;
     height: 240px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    flex: 0 0 auto;
     cursor: pointer;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.movie-row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* scroll horizontal */
+    gap: 16px;
 }
 
 .movie-card:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(122, 48, 227, 0.6), 0 0 30px rgba(122, 48, 227, 0.2);
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* scroll horizontal */
+  gap: 16px;
 }
 
 .movie-card img {
@@ -514,7 +539,7 @@ main {
 }
 
 .genres-grid {
-    display: flex;
+    display: flex; /* Mantém o layout de coluna para as seções de gênero */
     flex-direction: column;
     gap: 40px;
     padding: 20px;
@@ -528,6 +553,17 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: left;
+    -webkit-overflow-scrolling: touch; /* Melhora o scroll em dispositivos iOS */
+    scrollbar-width: none; /* Esconde a barra de rolagem para Firefox */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* scroll horizontal */
+    gap: 16px;
+}
+
+/* Esconde a barra de rolagem para navegadores baseados em WebKit (Chrome, Safari, Edge) */
+.genre-section::-webkit-scrollbar {
+    display: none;
 }
 
 .genre-section-header {
@@ -539,24 +575,28 @@ main {
 }
 
 .genre-section h2 {
-    color: #BB86FC; 
-    margin: 0; 
+    color: #BB86FC;
+    margin: 0;
     flex-grow: 1;
     text-align: center;
     font-size: 1.5rem;
 }
 
 .genre-section .movie-card {
+    flex-shrink: 0; /* Impede que os cards encolham */
     width: 150px;
     height: auto;
-    background-color: #3a294274; 
+    background-color: #3a294274;
     border-radius: 7px;
-    padding: 10px; 
+    padding: 10px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Mantém o conteúdo do card em coluna */
+    align-items: center; /* Centraliza o conteúdo do card */
 }
 
 .genre-section .movie-card img {
-    height: 180px; 
+    height: 180px;
     width: 100%;
     object-fit: cover;
     border-radius: 5px;
@@ -567,7 +607,6 @@ main {
     padding: 5px 0;
     margin: 5px 0 0;
 }
-
 
 .see-all-link {
     color: #BB86FC; 
@@ -667,129 +706,9 @@ main {
     margin-top: -8px; 
 }
 
-
 .footer .footer-things {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 5px 20px;
-}
-
-@media (max-width: 900px) {
-    .conteudo-principal {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .navbar .logo {
-        margin-right: 20px; 
-        margin-left: 10px;
-    }
-
-    .navbar nav {
-        display: none; 
-    }
-
-    .search-bar {
-        width: 80%;
-        margin-right: 10px;
-    }
-
-    .roleta-section {
-        margin: 0 auto 20px; 
-        width: 90%; 
-        max-width: 350px;
-    }
-
-    .filmes-listas {
-        width: 100%; 
-    }
-
-    .main-result-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .main-result-card .info {
-        text-align: center;
-    }
-
-    .main-result-card img {
-        width: 80%; 
-        max-width: 200px;
-    }
-
-    .footer {
-        flex-direction: column;
-        height: auto;
-        padding: 15px;
-    }
-
-    .footer .button-btn,
-    .footer .footer-things {
-        margin: 10px 0; 
-    }
-
-    .genre-section .movie-card {
-        width: 120px; 
-        padding: 8px;
-    }
-    .genre-section .movie-card img {
-        height: 150px;
-    }
-}
-
-@media (max-width: 600px) {
-    .navbar .logo {
-        font-size: 18px;
-        margin-right: 10px;
-        margin-left: 5px;
-    }
-
-    .navbar .profile-icon {
-        margin-left: 10px;
-    }
-
-    .search-input, .search-btn {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.9rem;
-    }
-
-    .movie-card {
-        width: 130px; 
-        height: 180px;
-        padding: 10px;
-    }
-
-    .movie-card img {
-        height: 100px;
-    }
-
-    .movie-card p {
-        font-size: 0.8em;
-    }
-
-    .modal-content {
-        width: 95%;
-        margin: 2% auto;
-        padding: 15px;
-    }
-
-    .genre-section h2 {
-        font-size: 1.2rem;
-    }
-    .see-all-link {
-        font-size: 0.9em;
-    }
-    .genre-section .movie-card {
-        width: 100px;
-        height: auto;
-    }
-    .genre-section .movie-card img {
-        height: 130px;
-    }
-    .genre-section .movie-card p {
-        font-size: 0.75em;
-    }
 }
