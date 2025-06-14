@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Lançamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">Roletando</a>
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+            <button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+        </div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="genrelist.html">Gêneros</a>
+            <a href="minhaslistas.html">Minhas Listas</a>
+        </nav>
+        <div class="profile-icon">👤</div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 id="releaseTitle">🎬 Todos os Lançamentos</h1>
+            <div class="filmes-row-wrapper">
+                <div class="card-container filmes-row" id="allLatestMoviesContainer">
+                    </div>
+            </div>
+
+            <div class="pagination">
+                <button onclick="previousLatestPage()">Anterior</button>
+                <span id="currentPage">Página 1</span>
+                <button onclick="nextLatestPage()">Próxima</button>
+            </div>
+            <div id="movieModal" class="modal">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal()">&times;</span>
+          <h2 id="modalTitle"></h2>
+          <p id="modalInfo"></p>
+          <p id="modalOverview"></p>
+          <div id="modalTrailer"></div>
+        </div>
+      </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-top">
+            <div class="footer-about">
+                <h2>🎬 Roletando</h2>
+                <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Início</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Chama a função para carregar os filmes quando a página for carregada
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verifica se a página atual é vertodoslancamentos.html
+            if (window.location.pathname.includes('vertodoslancamentos.html')) {
+                loadAllLatestMovies();
+            }
+        });
+    </script>
+</body>
+</html>

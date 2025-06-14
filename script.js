@@ -1,4 +1,4 @@
-const API_TOKEN = 'x';
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGQyYmU3YmU4ZDc3NDAxNjBkM2Y5YjJhNTg2MGUzYiIsIm5iZiI6MTc0ODgwMjE4MC42OTgsInN1YiI6IjY4M2M5YTg0OWQzYzgzMjU1NTI4OGMzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.I3vkGUePNaq8IvW_vEB795js7lzNYSAt5gYiFkCGaEA';
 
 let currentPage = 1;
 let totalPages = 1;
@@ -533,3 +533,73 @@ document.querySelector('.scroll-right').addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+async function loadAllPopularMovies(page = 1) {
+    const url = `https://api.themoviedb.org/3/movie/popular?language=pt-BR&page=${page}`;
+    const data = await fetchAPI(url);
+
+    if (!data || !data.results) {
+        console.error("Erro ao carregar filmes populares.");
+        return;
+    }
+
+    // Renderiza os filmes no contêiner da página "ver todos populares"
+    renderMovies(data.results, 'allPopularMoviesContainer');
+
+    currentPage = page; // Atualiza a página atual
+    totalPages = data.total_pages; // Atualiza o total de páginas
+    document.getElementById('currentPage').innerText = `Página ${currentPage}`; // Atualiza o indicador de página
+}
+
+function previousPage() {
+    if (currentPage > 1) {
+        loadAllPopularMovies(currentPage - 1);
+        scrollToTop(); // Opcional: rola para o topo ao mudar de página
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        loadAllPopularMovies(currentPage + 1);
+        scrollToTop(); // Opcional: rola para o topo ao mudar de página
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+async function loadAllLatestMovies(page = 1) {
+    const url = `https://api.themoviedb.org/3/movie/now_playing?language=pt-BR&page=${page}`;
+    const data = await fetchAPI(url);
+
+    if (!data || !data.results) {
+        console.error("Erro ao carregar filmes de lançamento.");
+        return;
+    }
+
+    renderMovies(data.results, 'allLatestMoviesContainer'); // Renderiza no contêiner da nova página
+
+    currentLatestPage = page;
+    totalLatestPages = data.total_pages;
+    // Atualiza o indicador de página. Note que 'currentPage' pode ser global e usado por outras funções,
+    // então é importante ter certeza que não haverá conflito ou usar um ID específico para cada contador.
+    document.getElementById('currentPage').innerText = `Página ${currentLatestPage}`;
+}
+
+function previousLatestPage() {
+    if (currentLatestPage > 1) {
+        loadAllLatestMovies(currentLatestPage - 1);
+        scrollToTop(); // Rola para o topo ao mudar de página (função já existente)
+    }
+}
+
+function nextLatestPage() {
+    if (currentLatestPage < totalLatestPages) {
+        loadAllLatestMovies(currentLatestPage + 1);
+        scrollToTop(); // Rola para o topo ao mudar de página (função já existente)
+    }
+}
