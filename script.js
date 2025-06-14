@@ -193,10 +193,10 @@ async function loadGenrePage(page = 1) {
 
 
 // --- Funções da Página de Listagem de Gêneros (genrelist.html) ---
-async function fetchMoviesByGenre(genreId, limit = 15) {
+async function fetchMoviesByGenre(genreId, limit = 20) {
     const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=pt-BR&sort_by=popularity.desc&page=1`;
     const data = await fetchAPI(url);
-    return data.results ? data.results.slice(0, limit) : [];
+    return data.results || [];
 }
 
 async function loadGenres() {
