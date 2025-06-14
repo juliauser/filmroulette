@@ -1,4 +1,4 @@
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGQyYmU3YmU4ZDc3NDAxNjBkM2Y5YjJhNTg2MGUzYiIsIm5iZiI6MTc0ODgwMjE4MC42OTgsInN1YiI6IjY4M2M5YTg0OWQzYzgzMjU1NTI4OGMzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.I3vkGUePNaq8IvW_vEB795js7lzNYSAt5gYiFkCGaEA';
+const API_TOKEN = 'x';
 
 let currentPage = 1;
 let totalPages = 1;
