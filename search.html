@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado da Busca</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
+    <nav>
+      <a href="index.html" class="active">Início</a>
+      <a href="genrelist.html" class="active">Gêneros</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+
+  <div class="container">
+    <h1>🔍 Resultado da Busca</h1>
+
+    <div id="searchResult"></div>
+    <div id="searchResult2"></div>
+
+    <h2>🔥 Filmes Populares</h2>
+    <div class="card-container" id="popularContainer"></div>
+  </div>
+
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalInfo"></p>
+      <p id="modalOverview"></p>
+      <div id="modalTrailer"></div>
+    </div>
+  </div>
+  
+  <div class="pagination">
+      <button onclick="previousSearchPage()">⬅️ Anterior</button>
+      <span id="searchPageIndicator">Página 1</span>
+      <button onclick="nextSearchPage()">Próxima ➡️</button>
+    </div>
+
+  <!-- Rodapé -->
+   <footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>🎬 Roletando</h2>
+      <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+    </div>
+
+    <div class="footer-links">
+      <ul>
+        <li><a href="#">Início</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

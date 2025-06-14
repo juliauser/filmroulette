@@ -1,59 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎞️ Filmes por Gênero</title>
-  <link rel="stylesheet" href="style.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>🎞️ Filmes por Gênero</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
-  <header class="navbar">
-    <a href="index.html" class="logo">Roletando</a>
-    <input type="text" id="searchInput" placeholder="Procure por filmes, categorias..." class="search-bar">
-    <button class="search-btn" onclick="searchMovies()">Pesquisar</button>
-    <nav>
-      <a href="index.html" class="active">Início</a>
-      <a href="categorias.html">Categorias</a>
-      <a href="minhaslistas.html">Minhas Listas</a>
-    </nav>
-    <div class="profile-icon">👤</div>
-  </header>
+   <header class="navbar">
+  <a href="index.html" class="logo">Roletando</a>
+   <div class="search-bar">
+    <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+    <button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+   </div>
+  <nav>
+   <a href="index.html" class="active">Início</a>
+   <a href="genrelist.html" class="active">Gêneros</a>
+   <a href="minhaslistas.html">Minhas Listas</a>
+  </nav>
+  <div class="profile-icon">👤</div>
+ </header>
 
   <div class="container">
-    <h1 id="genreTitle">🎬 Gênero</h1>
-
-    <div class="card-container" id="genreContainer"></div>
-
-      
-      </div>
-      </div>
-    </div>
-
+    <h1 id="genreTitle">🎬 Carregando Gênero...</h1>
+    <div id="genreContainer" class="genre-movies-container"></div>
     <div id="pagination" class="pagination">
-  <button onclick="previousPage()">⬅️ Anterior</button>
-  <span id="currentPage">Página 1</span>
-  <button onclick="nextPage()">Próxima ➡️</button>
+        <button onclick="previousPage()">⬅️ Anterior</button>
+        <span id="currentPage">Página 1</span>
+        <button onclick="nextPage()">Próxima ➡️</button>
+    </div>
 </div>
-
-  <!-- Modal -->
-<div id="movieModal" class="modal">
+    </div>
+    <div id="movieModal" class="modal">
   <div class="modal-content">
     <span class="close-button" onclick="closeModal()">&times;</span>
     <h2 id="modalTitle"></h2>
     <p id="modalInfo"></p>
     <p id="modalOverview"></p>
-  </div>
+    <div id="modalTrailer"></div> </div>
 </div>
 
-<!-- Rodapé -->
-  <footer class="footer">
-    <button class="button-btn">Contato</button>
-    <div class="footer-things">
-      <p>&copy; 2025 Roletando. </p>
-    </div>
-  </footer>
+<footer class="custom-footer">
+ <div class="footer-top">
+  <div class="footer-about">
+   <h2>🎬 Roletando</h2>
+   <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+  </div>
 
-  <script src="script.js"></script>
+  <div class="footer-links">
+   <ul>
+    <li><a href="#">Início</a></li>
+   </ul>
+  </div>
+ </div>
+
+ <div class="footer-bottom">
+  <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+ </div>
+</footer>
+
+ <script src="script.js"></script>
 </body>
 </html>

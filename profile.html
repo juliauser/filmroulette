@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="style.css">
+    <script>
+        if (avatarSelect && profilePhoto) {
+  avatarSelect.value = userData.avatar || '👤';
+  profilePhoto.textContent = userData.avatar || '👤';
+
+  avatarSelect.addEventListener('change', () => {
+    userData.avatar = avatarSelect.value;
+    profilePhoto.textContent = userData.avatar;
+    saveUserData();
+  });
+}
+    </script>
+
+</head>
+<body>
+
+    <!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
+    <nav>
+      <a href="index.html" class="active">Início</a>
+      <a href="genrelist.html" class="active">Gêneros</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon" onclick="logout()">🚪 Sair</div>
+  </header>
+
+  <main class="profile-container">
+
+    <!-- Dados do usuário -->
+    <section class="user-info">
+      <div class="profile-photo">👤</div>
+      <span class="username" id="username">Usuário</span>
+
+      <select id="avatar-select">
+        <option value="👤">Padrão</option>
+        <option value="🐱">Gato</option>
+        <option value="🐶">Cachorro</option>
+        <option value="🐵">Macaco</option>
+        <option value="🦊">Raposa</option>
+        <option value="🐸">Sapo</option>
+        </select>
+
+    </section>
+
+    <!-- Minhas Listas -->
+    <section class="user-lists">
+      <h2>Minhas Listas</h2>
+      <ul id="lists-container">
+        <li>⭐ Favoritos</li>
+        <li>Lista 1</li>
+        <li>Lista 2</li>
+        <li>...</li>
+      </ul>
+    </section>
+
+    <!-- Configurações -->
+    <section class="roulette-settings">
+      <h2>Configurações da Roleta</h2>
+
+      <div class="setting-box">
+        <label for="sound-select">Som final:</label>
+        <select id="sound-select">
+          <option value="ding">Ding</option>
+          <option value="applause">Aplauso</option>
+          <option value="bell">Sino</option>
+        </select>
+      </div>
+
+      <div class="setting-box">
+        <label for="animation-select">Animação final:</label>
+        <select id="animation-select">
+          <option value="confetti">Confete</option>
+          <option value="fireworks">Fogos</option>
+          <option value="bounce">Pular</option>
+        </select>
+      </div>
+
+      <button class="save-button">Salvar</button>
+    </section>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>🎬 Roletando</h2>
+      <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+    </div>
+
+    <div class="footer-links">
+      <ul>
+        <li><a href="#">Início</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+  <script src="profile.js"></script>
+</body>
+</html>

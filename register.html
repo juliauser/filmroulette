@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo">Roletando</a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar filme...">
+<button onclick="handleSearch()" class="search-btn">Pesquisar</button>
+      </div>
+    <nav>
+      <a href="index.html" class="active">Início</a>
+      <a href="genrelist.html" class="active">Gêneros</a>
+      <a href="minhaslistas.html">Minhas Listas</a>
+    </nav>
+    <div class="profile-icon">👤</div>
+  </header>
+
+  <main>
+  <h1>Cadastro</h1>
+  <input type="text" id="username" placeholder="Nome de usuário"><br>
+  <input type="password" id="password" placeholder="Senha"><br>
+  <button onclick="register()">Cadastrar</button><br><br>
+
+  <p>Já tem conta? <a href="login.html">Faça login</a></p>
+  </main>
+  <script>
+    function register() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+    
+      if (username === '' || password === '') {
+        alert('Preencha todos os campos!');
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+
+      if (users[username]) {
+        alert('Usuário já existe!');
+      } else {
+        users[username] = {
+          password: password,
+          lists: ['Favoritos'],
+          rouletteSound: 'ding',
+          rouletteAnimation: 'confetti'
+        };
+
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('loggedUser', username);
+
+        alert('Cadastro realizado com sucesso!');
+        window.location.href = 'profile.html';
+      }
+    } 
+  </script>
+
+   <footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>🎬 Roletando</h2>
+      <p>Descubra novos filmes com uma roleta personalizada. Escolha, gire e surpreenda-se.</p>
+    </div>
+
+    <div class="footer-links">
+      <ul>
+        <li><a href="#">Início</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Roletando. Todos os direitos reservados.</p>
+  </div>
+</footer>
+</body>
+</html>
